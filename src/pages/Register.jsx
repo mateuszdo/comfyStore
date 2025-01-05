@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable no-unused-vars */
 import {FormInput, SubmitBtn} from "../components";
 import {Form, Link, redirect} from "react-router-dom";
 import {customFetch} from "../utils";

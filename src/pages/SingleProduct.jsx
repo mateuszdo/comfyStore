@@ -5,16 +5,25 @@ import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addItem} from "../features/cart/cartSlice";
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const loader = async ({params}) => {
-	const response = await customFetch(`/products/${params.id}`);
-	const product = response.data.data;
-	return product;
+const singleProductQuery = (id) => {
+	return {
+		queryKey: ["singleProduct", id],
+		queryFn: () => customFetch.get(`/products/${id}`),
+	};
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
+export const loader =
+	(queryClient) =>
+	async ({params}) => {
+		const response = await queryClient.ensureQueryData(
+			singleProductQuery(params.id)
+		);
+		return response.data.data;
+	};
+
 const SingleProduct = () => {
-	const product = useLoaderData(loader);
-	console.log(product);
+	const product = useLoaderData();
 	const {image, title, price, description, colors, company} =
 		product.attributes;
 	const poundsAmount = priceFormat(price);

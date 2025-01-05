@@ -17,7 +17,7 @@ export const action =
 			toast.success("logged in successfully");
 			return redirect("/");
 		} catch (error) {
-			console.log(error);
+			//console.log(error);
 			const errorMessage =
 				error?.response?.data?.error?.message ||
 				"please double check your credentials";
